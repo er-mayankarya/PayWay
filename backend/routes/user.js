@@ -4,21 +4,20 @@ import { User } from "../db.js";
 
 export const userRouter = Router();
 
-userRouter.post("/signup" , (req , res) => {
-    const username = req.body;
-    const password = req.body;
-    const firstName = req.body;
-    const lastName = req.body;
+userRouter.post("/signup", async (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
 
-    User.create({
-        username ,
-        password,
-        firstName,
-        lastName
-    })
+  await User.create({
+    username,
+    password,
+    firstName,
+    lastName,
+  });
 
-    res.json({
-        message : "Sihnup Sucessful"
-    })
-})
-
+  res.json({
+    message: "Sihnup Sucessful",
+  });
+});

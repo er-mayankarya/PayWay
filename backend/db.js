@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 mongoose.connect(process.env.DATABASE_URL);
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({  
     username: {
         type: String,
         required: true,
@@ -13,25 +13,24 @@ const userSchema = new mongoose.Schema({
         minLength: 3,
         maxLength: 30
     },
-
-    password : {
-        type : String,
+    password: {
+        type: String,
         required: true,
         minLength: 6
     },
-
-    firstName : {
+    firstName: {
         type: String,
         required: true,
         trim: true,
         maxLength: 50
     },
-    lastName : {
+    lastName: {
         type: String,
         required: true,
         trim: true,
         maxLength: 50
     }
-})
+});
 
-export const User = mongoose.model("Users" , userSchema);
+// Create a model from the schema
+export const User = mongoose.model('User', userSchema);
