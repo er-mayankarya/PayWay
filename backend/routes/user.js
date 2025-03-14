@@ -1,14 +1,13 @@
 import { Router } from "express";
 import mongoose from "mongoose";
 import { User } from "../db.js";
+import jwt from "jsonwebtoken";
+import { JWT_USER_SECRET } from "../config.js";
 
 export const userRouter = Router();
 
 userRouter.post("/signup", async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  const firstName = req.body.firstName;
-  const lastName = req.body.lastName;
+  const { username , password , firstName , lastName } = req.body;
 
   await User.create({
     username,
@@ -18,6 +17,37 @@ userRouter.post("/signup", async (req, res) => {
   });
 
   res.json({
-    message: "Sihnup Sucessful",
+    message: "Sinup Sucessful",
   });
 });
+
+userRouter.post("/signin" , async ( req , res ) => {
+  const { username , password  } = req.body;
+
+  const user = await User.findOne({
+    username
+  })
+
+  if (!user) {
+    res.status(403).send({
+      message : "User doesn't exist"
+    })
+  }
+
+  if (user) {
+    const token = jwt.sign({
+      id : user._id.toString()
+    } , JWT_USER_SECRET)
+
+    res.header("token" , token);
+   
+    res.json({
+      message : "You are logged in" ,
+      token
+    })
+  }else{
+    res.status(401).json({
+      message : "Incorrect Crednitals"
+    })
+  }
+})
