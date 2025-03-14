@@ -17,7 +17,7 @@ userRouter.post("/signup", async (req, res) => {
   });
 
   res.json({
-    message: "Sinup Sucessful",
+    message: "Signup Sucessfull",
   });
 });
 
@@ -47,7 +47,7 @@ userRouter.post("/signin" , async ( req , res ) => {
     })
   }else{
     res.status(401).json({
-      message : "Incorrect Crednitals"
+      message : "Incorrect Credential"
     })
   }
 })
