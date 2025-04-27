@@ -1,5 +1,6 @@
 import mongoose, { Schema, Types } from "mongoose";
 
+//User Schema & Model
 const userSchema = new Schema({
   username: {
     type: String,
@@ -26,3 +27,19 @@ const userSchema = new Schema({
 });
 
 export const userModel = mongoose.model("User", userSchema);
+
+//Account Schema & Model
+const accountSchema = new Schema({
+    userId: {
+      type: Types.ObjectId,
+      ref: userModel,
+      required: true,
+    },
+  
+    balance: {
+      type: Number,
+      required: true,
+    },
+  });
+  
+  export const accountModel = mongoose.model("Account", accountSchema);
