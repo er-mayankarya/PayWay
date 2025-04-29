@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import jwt from "jsonwebtoken";
-import { userModel } from "../db.js";
+import { accountModel, userModel } from "../db.js";
 import { JWT_USER_SECRET } from "../config.js";
 import { authMiddleware } from "../middleware.js";
 
@@ -30,9 +30,18 @@ userRouter.post("/signup", async (req, res) => {
         lastName,
       });
 
+      const userId =  user._id
+
+
+      // New Account Top with some random balance
+      await accountModel.create({
+        userId ,
+        balance : 1 + Math.random() * 10000
+      })
+
       const token = jwt.sign(
         {
-          userId: user._id,
+          userId
         },
         JWT_USER_SECRET
       );
