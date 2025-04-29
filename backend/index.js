@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 });
 
 async function main() {
-  mongoose.connect(`${process.env.MONGO_URI}/PayWay-Paytm_Clone`);
+  mongoose.connect(`${process.env.MONGO_URI}/PayWay-Wallet`);
   console.log("Database Connected");
 
   app.listen(process.env.PORT, () => {
